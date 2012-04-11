@@ -26,12 +26,9 @@ public class MyService
 
 The problem we run into with this approach is that in different settings (during development, during unit tests, and in production), we need to be able to easily swap (inject) other providers (dependencies) into the service, such as mock implementations. 
 
-Out of the box, WCF simply `new`s up a new service instance and dispatches calls against it. Responsible for creating service instances is a class implementing the [`IInstanceProvider` interface][4]. Simply speaking, to hook WCF up to your preferred IoC container, you need to implement your own [`IInstanceProvider`][4] and convince WCF to use it using a custom [`IServiceBehavior`][5]. 
-
-
+Out of the box, WCF simply `new`s up a new service instance and dispatches calls against it. Responsible for creating service instances is a class implementing the [`IInstanceProvider` interface][4]. Simply speaking, to hook WCF up to your preferred IoC container, you need to implement your own [`IInstanceProvider`][4] and convince WCF to use it using a custom [`IServiceBehavior`][5]. Such a [ServiceBehavior][5] needs to be configured within the ServiceHost. For example, when running self-hosted, you can simply 
 
 When choosing an [`InstanceContextMode`][6] of Single, the system does not call the GetInstance method of our [`IInstanceProvider`][4], so that we have to run a special ServiceHostFactory.  
-
 
 [1]: http://msdn.microsoft.com/en-us/library/ms733766.aspx "Host a WCF Service in IIS"
 [2]: http://www.venus-c.eu/ "VENUS-C Generic Worker"
